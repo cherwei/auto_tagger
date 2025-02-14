@@ -19,7 +19,7 @@ module AutoTagger
     end
 
     def file_settings
-      return {} unless File.exists?(opts_file)
+      return {} unless File.exist?(opts_file)
       args = File.read(opts_file).to_s.split("\n").map { |line| line.strip }
       args.reject! { |line| line == "" }
       AutoTagger::Options.from_file(args)

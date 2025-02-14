@@ -8,7 +8,7 @@ class StepHelpers
   end
 
   def reset
-    FileUtils.rm_r(test_files_dir) if File.exists?(test_files_dir)
+    FileUtils.rm_r(test_files_dir) if File.exist?(test_files_dir)
     FileUtils.mkdir_p(test_files_dir)
   end
 

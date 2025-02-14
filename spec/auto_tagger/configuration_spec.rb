@@ -38,7 +38,7 @@ describe AutoTagger::Configuration do
     it "return a hash representing the options specified in the opts file" do
       config = AutoTagger::Configuration.new
       config.stub(:opts_file) { "/foo/.auto_tagger" }
-      File.should_receive(:exists?) { true }
+      File.should_receive(:exist?) { true }
       File.should_receive(:read).with("/foo/.auto_tagger").and_return("--offline=false\n--verbose=true")
       config.file_settings.should == {:offline => false, :verbose => true}
     end
@@ -46,20 +46,20 @@ describe AutoTagger::Configuration do
     it "ignores blank lines and whitespace" do
       config = AutoTagger::Configuration.new
       config.stub(:opts_file) { "/foo/.auto_tagger" }
-      File.should_receive(:exists?).with("/foo/.auto_tagger") { true }
+      File.should_receive(:exist?).with("/foo/.auto_tagger") { true }
       File.should_receive(:read).with("/foo/.auto_tagger").and_return("  --offline=false  \n\n--verbose=true\n")
       config.file_settings.should == {:offline => false, :verbose => true}
     end
 
     it "returns an empty hash if the file doens't exist" do
-      File.stub(:exists?) { false }
+      File.stub(:exist?) { false }
       config = AutoTagger::Configuration.new :path => "/foo"
       config.file_settings.should == {}
     end
 
     # TODO: print warnings instead of blowing up??
     it "doesn't parse options that are not valid for the opts file" do
-      File.stub(:exists?) { true }
+      File.stub(:exist?) { true }
       File.should_receive(:read).with("/foo/.auto_tagger").and_return("--opts-file=/foo")
       config = AutoTagger::Configuration.new :path => "/foo"
       proc do

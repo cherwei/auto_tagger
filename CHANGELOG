@@ -1,3 +1,7 @@
+2025-02-14
+  - Starting in Ruby 3.2.0 the exists? (pluralized) alias for exist? seems to has been removed.
+  - With Ruby 3.2.0, be sure to use the singular-form exist?
+
 2013-11-02
   - Actually drop support for capistrano 2.15.4 (thanks cpmurphy)
 

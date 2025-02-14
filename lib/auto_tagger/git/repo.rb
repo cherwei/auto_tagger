@@ -32,8 +32,8 @@ module AutoTagger
       def path
         return @path if @path
         raise NoPathProvidedError if @given_path.to_s.strip == ""
-        raise NoSuchPathError if !File.exists?(@given_path)
-        raise InvalidGitRepositoryError if !File.exists?(File.join(@given_path, ".git"))
+        raise NoSuchPathError if !File.exist?(@given_path)
+        raise InvalidGitRepositoryError if !File.exist?(File.join(@given_path, ".git"))
         @path = @given_path
       end
 

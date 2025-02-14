@@ -3,7 +3,7 @@ require 'spec_helper'
 describe AutoTagger::Git::Repo do
 
   before do
-    File.stub(:exists?).and_return(true)
+    File.stub(:exist?).and_return(true)
     @commander = mock(AutoTagger::Commander)
   end
 
@@ -19,23 +19,23 @@ describe AutoTagger::Git::Repo do
     end
 
     it "raises and error if the path does not exist" do
-      File.should_receive(:exists?).with("/foo").and_return(false)
+      File.should_receive(:exist?).with("/foo").and_return(false)
       proc do
         AutoTagger::Git::Repo.new("/foo").path
       end.should raise_error(AutoTagger::Git::Repo::NoSuchPathError)
     end
 
     it "raises and error if the path does not have a .git directory" do
-      File.should_receive(:exists?).with("/foo").and_return(true)
-      File.should_receive(:exists?).with("/foo/.git").and_return(false)
+      File.should_receive(:exist?).with("/foo").and_return(true)
+      File.should_receive(:exist?).with("/foo/.git").and_return(false)
       proc do
         AutoTagger::Git::Repo.new("/foo").path
       end.should raise_error(AutoTagger::Git::Repo::InvalidGitRepositoryError)
     end
 
     it "returns the path if it's a git directory" do
-      File.should_receive(:exists?).with("/foo").and_return(true)
-      File.should_receive(:exists?).with("/foo/.git").and_return(true)
+      File.should_receive(:exist?).with("/foo").and_return(true)
+      File.should_receive(:exist?).with("/foo/.git").and_return(true)
       AutoTagger::Git::Repo.new("/foo").path.should == "/foo"
     end
   end
